@@ -23,36 +23,29 @@
  *
  */
 
-package com.example.controllers
+package com.infoquant.gf.common.utils
 
 import org.slf4j.LoggerFactory
-import spark.Spark.get
 
-class MainController() : Controller() {
-    override val logger = LoggerFactory.getLogger(MainController::class.java)
+object Memory {
 
-    init {
-        templatePath = "/main"
+    val logger = LoggerFactory.getLogger(LoggerFactory::class.java)
+    internal val mb = 1024 * 1024
+    internal var runtime = Runtime.getRuntime()
 
-        /**
-         * Initialize spark before filters for all routes
-         */
-        initFilters(arrayOf(baseRoutePath + "/*"))
-
-        get(baseRoutePath + "/") { rq, rs ->
-            out(model, templatePath + "/index.peb");
-        }
-
-        get(baseRoutePath + "/features") { rq, rs ->
-            out(model, templatePath + "/features.peb");
-        }
-
-        get(baseRoutePath + "/about") { rq, rs ->
-            out(model, templatePath + "/about.peb");
-        }
-
-        get(baseRoutePath + "/contact") { rq, rs ->
-            out(model, templatePath + "/contact.peb");
-        }
+    fun print() {
+        logger.info(String.format("Memory (Used/Free/Total/Max): %s/%s/%s/%s Mb", used, free, total, max))
     }
+
+    val used: Long
+        get() = (runtime.totalMemory() - runtime.freeMemory()) / mb
+
+    val free: Long
+        get() = runtime.freeMemory() / mb
+
+    val total: Long
+        get() = runtime.totalMemory() / mb
+
+    val max: Long
+        get() = runtime.maxMemory() / mb
 }

@@ -27,13 +27,18 @@ package com.example
 
 import com.example.controllers.ErrorController
 import com.example.controllers.MainController
+import com.infoquant.gf.common.utils.Memory
+import org.slf4j.LoggerFactory
 import spark.Spark
 import spark.Spark.staticFileLocation
 import spark.debug.DebugScreen.enableDebugScreen
 import spark.servlet.SparkApplication
+import java.util.*
 
 class Server : SparkApplication {
     val isDevMode = true;
+    val logger = LoggerFactory.getLogger(Server::class.java)
+
 
     /**
      * Constructor to standalone deployment using embedded jetty web server.
@@ -58,6 +63,7 @@ class Server : SparkApplication {
     }
 
     private fun initServer(args: Array<String>) {
+        displayStartupMessage();
         enableDebugScreen();
         if (isDevMode) {
             Spark.externalStaticFileLocation("src/main/resources/public")
@@ -65,6 +71,17 @@ class Server : SparkApplication {
             staticFileLocation("/public")
         }
         initControllers();
+    }
+
+    private fun displayStartupMessage() {
+        logger.info("=============================================================")
+        logger.info("Spark Simple Starter Started")
+        // @Todo: Add versioning
+        //logger.info("Version: " + App.product?.version)
+        logger.info("Date: " + Date().toString())
+        logger.info("OS: " + System.getProperty("os.name"))
+        logger.info("Initial Memory: " + Memory.used + "Mb")
+        logger.info("=============================================================")
     }
 
     private fun initControllers() {

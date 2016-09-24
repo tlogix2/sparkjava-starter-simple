@@ -22,13 +22,12 @@
  * SOFTWARE.
  *
  */
+
 package com.example.util
 
 
 import com.mitchellbosecke.pebble.PebbleEngine
 import com.mitchellbosecke.pebble.error.PebbleException
-import spark.ModelAndView
-import spark.TemplateEngine
 import java.io.IOException
 import java.io.StringWriter
 

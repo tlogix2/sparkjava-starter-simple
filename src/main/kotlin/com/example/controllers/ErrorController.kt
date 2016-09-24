@@ -25,32 +25,34 @@
 
 package com.example.controllers
 
-import spark.Spark
+import org.slf4j.LoggerFactory
 import spark.Spark.get
 
-class ErrorController : Controller(){
+class ErrorController : Controller() {
+    override val logger = LoggerFactory.getLogger(ErrorController::class.java)
+
     init {
         initFilters(arrayOf("/400", "/401", "/402", "/403", "/404", "/500"))
 
         get("/401") { req, res ->
             res.status(401)
-                model.put("title", "401 Unauthorized")
-                model.put("msg", "Sorry...access denied.")
-                out(model, "/error.peb")
+            model.put("title", "401 Unauthorized")
+            model.put("msg", "Sorry...access denied.")
+            out(model, "/error.peb")
         }
 
         get("/403") { req, res ->
             res.status(403)
-                model.put("title", "403 Forbidden")
-                model.put("msg", "Sorry...access denied.")
-                out(model, "/error.peb")
+            model.put("title", "403 Forbidden")
+            model.put("msg", "Sorry...access denied.")
+            out(model, "/error.peb")
         }
 
         get("/404") { req, res ->
             res.status(404)
-                model.put("title", "404 Not Found")
-                model.put("msg", "Sorry...where it went, we know not.")
-                out(model, "/error.peb")
+            model.put("title", "404 Not Found")
+            model.put("msg", "Sorry...where it went, we know not.")
+            out(model, "/error.peb")
         }
 
         get("/500") { req, res ->

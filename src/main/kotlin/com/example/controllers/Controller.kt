@@ -28,12 +28,14 @@ package com.example.controllers
 import com.example.models.ContextModel
 import com.example.models.Flash
 import com.example.util.DefaultTemplateEngine
+import org.slf4j.LoggerFactory
 import spark.Request
 import spark.Response
 import spark.Spark
 import java.util.*
 
 open class Controller {
+    open val logger = LoggerFactory.getLogger(Controller::class.java)
     private val EMPTY_STRING: String = "";
     private val templageEngine = DefaultTemplateEngine()
 
@@ -48,10 +50,10 @@ open class Controller {
         /**
          * Sets a generic error handler so that the user doesn't get default white jetty error page
          */
-//        Spark.exception(Exception::class.java) { e, req, res ->
-////            Logger.error(e)
-//            redirect(res, "/500")
-//        }
+        Spark.exception(Exception::class.java) { e, req, res ->
+            logger.error(e.message)
+            redirect(res, "/500")
+        }
     }
 
     /**
@@ -73,6 +75,7 @@ open class Controller {
                 updateContextModel()
                 setCorsHeaders(res)
                 createSessionId(req, res)
+                logRequest(req)
             }
         }
     }
@@ -104,14 +107,14 @@ open class Controller {
      * Use existing session id or create a new one.
      */
     private fun createSessionId(req: Request, res: Response) {
-//        val sessionId = getCookie(req, "sessionid") ?: getNewSessionId(res)
-//        model.put("sessionid", if (getCookie(req, "gfwid") != null) getCookie(req, "gfwid") else sessionId)
+        //        val sessionId = getCookie(req, "sessionid") ?: getNewSessionId(res)
+        //        model.put("sessionid", if (getCookie(req, "gfwid") != null) getCookie(req, "gfwid") else sessionId)
     }
 
     private fun getNewSessionId(res: Response): String {
-//        val sessionId = Crypto.generateMD5(Date().toString())
-//        setCookie(res, "sessionid", sessionId)
-//        return sessionId
+        //        val sessionId = Crypto.generateMD5(Date().toString())
+        //        setCookie(res, "sessionid", sessionId)
+        //        return sessionId
         return ""
     }
 
@@ -127,29 +130,24 @@ open class Controller {
      * Skip the before route methods for simple things
      */
     private fun shouldSkipInit(req: Request): Boolean {
-        return req.requestMethod().equals("options", ignoreCase = true) || req.pathInfo().contains("/universal/")
+        return req.requestMethod().equals("options", ignoreCase = true) || req.pathInfo().contains("/assets/")
     }
 
     /**
      * Log request to special access log
      */
     private fun logRequest(req: Request) {
-//        val log = Log()
-//        log.session = model.get("sessionid") as String
-//        log.action = getCommandAction(req)
-//        log.module = getCommandModule(req)
-//        log.requestMethod = req.requestMethod()
-//        log.isAjax = false
-//        log.format = getFormat(req)
-//        log.params = req.pathInfo()
-//        log.domain = req.host()
-//        log.publicIp = req.ip()
-//        log.createdAt = Date()
-//        log.createdBy = if (model.get("user") != null) (model.get("user") as User).username else ""
-//        logService.save(log)
-//        Logger.access(log)
+        val msg = String.format("%s|%s|%s|%s|%s|%s|%s",
+                req.pathInfo(),
+                req.requestMethod(),
+                getFormat(req),
+                req.host(),
+                req.ip(),
+                Date(),
+                "" // @Todo: was session id & user
+        );
+        logger.info(msg)
     }
-
 
 
     /**

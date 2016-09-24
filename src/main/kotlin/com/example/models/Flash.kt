@@ -25,7 +25,6 @@
 
 package com.example.models
 
-import com.example.models.FlashItem
 import com.example.models.constants.FlashMessageType
 import java.util.*
 
