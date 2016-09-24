@@ -40,18 +40,22 @@ class MainController() : Controller() {
         initFilters(arrayOf(baseRoutePath + "/*"))
 
         get(baseRoutePath + "/") { rq, rs ->
+            model.put("pageTitle", "Spark Simple Starter")
             out(model, templatePath + "/index.peb");
         }
 
         get(baseRoutePath + "/features") { rq, rs ->
+            model.put("pageTitle", "Features")
             out(model, templatePath + "/features.peb");
         }
 
         get(baseRoutePath + "/about") { rq, rs ->
+            model.put("pageTitle", "About Us")
             out(model, templatePath + "/about.peb");
         }
 
         get(baseRoutePath + "/contact") { rq, rs ->
+            model.put("pageTitle", "Contact Us")
             out(model, templatePath + "/contact.peb");
         }
     }
