@@ -5,7 +5,7 @@ The sparkjava simple starter provides a basic seed or example project using Spar
 ## Features and Limitations
 
 * Includes pages for simple routes (home, about, features, etc)
-* Adds simple before filters
+* Adds simple before filters (cors, logging, sessions, etc)
 * Uses Pebble for templates with basics features (inheritance, partials, etc)
 
 ## Installation
@@ -23,6 +23,19 @@ From the project dir, run:
 ## See also
 
 * [SparkJava Advanced Starter Kit](https://github.com/thoughtlogix/sparkjava-starter-advanced)
+
+## Todo
+
+Until we move into issues for long term use:
+ 
+* Add versioning
+* Set values from ENV, args and settings
+* Add basic forms
+* Added test
+* Add CI
+* Maybe add DI
+* Add VirtBox & Container
+* Add easily replaced placeholders, maybe more to cookiecutter or Yeoman tool.
 
 ## License
 
