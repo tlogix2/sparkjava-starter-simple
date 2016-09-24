@@ -30,18 +30,40 @@ import com.example.controllers.MainController
 import spark.Spark
 import spark.Spark.staticFileLocation
 import spark.debug.DebugScreen.enableDebugScreen
+import spark.servlet.SparkApplication
 
-class Server {
+class Server : SparkApplication {
     val isDevMode = true;
 
-    init {
+    /**
+     * Constructor to standalone deployment using embedded jetty web server.
+     *
+     * @param args Command line options
+     */
+    constructor(args: Array<String>) {
+        initServer(args)
+    }
+
+    /**
+     * Initialize the server via app server (not supported)
+     *
+     * @Todo: Test and fix why using app server didn't work.  I'm probably including wrong jars.  Grrr...
+     */
+    override fun init() {
+        try {
+            throw Exception("Running server using an application server is not supported yet")
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun initServer(args: Array<String>) {
         enableDebugScreen();
         if (isDevMode) {
             Spark.externalStaticFileLocation("src/main/resources/public")
         } else {
             staticFileLocation("/public")
         }
-
         initControllers();
     }
 
