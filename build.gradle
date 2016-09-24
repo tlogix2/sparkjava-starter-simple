@@ -25,6 +25,9 @@ SOFTWARE.
 group 'com.thoughtlogix'
 version '1.0-SNAPSHOT'
 
+////////////////////////////////////////////////////////////////////
+// COMMON BUILD SCRIPT SETUP
+////////////////////////////////////////////////////////////////////
 buildscript {
     ext.kotlin_version = '1.0.3'
     ext.spark_version = '2.5'
@@ -63,16 +66,73 @@ dependencies {
     testCompile 'org.seleniumhq.selenium:selenium-htmlunit-driver:2.52.0'
 }
 
+
+////////////////////////////////////////////////////////////////////
+// TESTING STUFF
+////////////////////////////////////////////////////////////////////
+dependencies {
+    testCompile 'io.kotlintest:kotlintest:1.3.1'
+    testCompile group: 'org.testng', name: 'testng', version: '6.9.10'
+}
+
+test {
+    minHeapSize = "256m"
+    maxHeapSize = "1024m"
+    testLogging.showStandardStreams = true
+    beforeTest { descriptor ->
+        logger.lifecycle("Running test: " + descriptor)
+    }
+}
+
+task testingUnit(type: Test, dependsOn: 'test') {
+    group = 'sparkstarter'
+    useTestNG() {
+        excludeGroups 'performance', 'integration', 'concurrency'
+    }
+}
+
+task testingIntegration(type: Test, dependsOn: 'test') {
+    group = 'sparkstarter'
+    useTestNG() {
+        includeGroups 'integration'
+    }
+}
+
+task testingPerformance(type: Test, dependsOn: 'test') {
+    group = 'sparkstarter'
+    useTestNG() {
+        includeGroups 'performance'
+    }
+}
+
+task testingConcurrency(type: Test, dependsOn: 'test') {
+    group = 'sparkstarter'
+    useTestNG() {
+        includeGroups 'concurrency'
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////
+// APPLICATION PLUGIN CONFIG
+////////////////////////////////////////////////////////////////////
 mainClassName = "com.example.MainKt"
 
+
+////////////////////////////////////////////////////////////////////
+// CUSTOM TASKS
+////////////////////////////////////////////////////////////////////
 task runServer(type: JavaExec) {
-    group = 'build'
+    group = 'sparkstarter'
     main = "com.example.MainKt"
     classpath = sourceSets.main.runtimeClasspath
     maxHeapSize = "1024m"
     dependsOn(build)
 }
 
+////////////////////////////////////////////////////////////////////
+// HELPER TASKS
+////////////////////////////////////////////////////////////////////
 task _copyToLib(type: Copy) {
     into "$buildDir/libs"
     from configurations.runtime
