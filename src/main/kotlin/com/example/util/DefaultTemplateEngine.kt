@@ -32,21 +32,13 @@ import spark.TemplateEngine
 import java.io.IOException
 import java.io.StringWriter
 
-class DefaultTemplateEngine : TemplateEngine {
+class DefaultTemplateEngine {
 
     private val engine: PebbleEngine
     private val basepath: String = "templates"
 
-    constructor() {
+    init {
         this.engine = PebbleEngine.Builder().build();
-    }
-
-    constructor(engine: PebbleEngine) {
-        this.engine = engine
-    }
-
-    override fun render(modelAndView: ModelAndView?): String {
-        return render(modelAndView!!.model, modelAndView.viewName);
     }
 
     @SuppressWarnings("unchecked")

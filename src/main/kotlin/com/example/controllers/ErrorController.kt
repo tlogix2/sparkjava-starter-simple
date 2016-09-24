@@ -25,33 +25,46 @@
 
 package com.example.controllers
 
+import spark.Spark
 import spark.Spark.get
-import java.util.*
 
-class MainController() : Controller() {
-
+class ErrorController : Controller(){
     init {
-        templatePath = "/main"
+        initFilters(arrayOf("/400", "/401", "/402", "/403", "/404", "/500"))
 
-        /**
-         * Initialize spark before filters for all routes
-         */
-        initFilters(arrayOf(baseRoutePath + "/*"))
-
-        get(baseRoutePath + "/") { rq, rs ->
-            out(model, templatePath + "/index.peb");
+        get("/401") { req, res ->
+            res.status(401)
+                model.put("title", "401 Unauthorized")
+                model.put("msg", "Sorry...access denied.")
+                out(model, "/error.peb")
         }
 
-        get(baseRoutePath + "/features") { rq, rs ->
-            out(model, templatePath + "/features.peb");
+        get("/403") { req, res ->
+            res.status(403)
+                model.put("title", "403 Forbidden")
+                model.put("msg", "Sorry...access denied.")
+                out(model, "/error.peb")
         }
 
-        get(baseRoutePath + "/about") { rq, rs ->
-            out(model, templatePath + "/about.peb");
+        get("/404") { req, res ->
+            res.status(404)
+                model.put("title", "404 Not Found")
+                model.put("msg", "Sorry...where it went, we know not.")
+                out(model, "/error.peb")
         }
 
-        get(baseRoutePath + "/contact") { rq, rs ->
-            out(model, templatePath + "/contact.peb");
+        get("/500") { req, res ->
+            res.status(500)
+            model.put("title", "500 Big Error")
+            model.put("msg", "Something bad happened.  This error has been logged for review.")
+            out(model, "/error.peb")
+        }
+
+        get("/*") { req, res ->
+            if (!req.pathInfo().startsWith("/assets")) {
+                return@get redirect(res, "/404")
+            }
+            return@get null
         }
     }
 }

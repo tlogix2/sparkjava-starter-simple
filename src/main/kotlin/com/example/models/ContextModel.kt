@@ -23,30 +23,41 @@
  *
  */
 
-package com.example
+package com.example.models
 
-import com.example.controllers.ErrorController
-import com.example.controllers.MainController
-import spark.Spark
-import spark.Spark.staticFileLocation
-import spark.debug.DebugScreen.enableDebugScreen
+import java.util.*
 
-class Server {
-    val isDevMode = true;
+/**
+ * The ContextModel stores data for a request/responce lifecycle.
+ */
+class ContextModel {
+    var model = ThreadLocal<HashMap<String, Any?>>()
 
     init {
-        enableDebugScreen();
-        if (isDevMode) {
-            Spark.externalStaticFileLocation("src/main/resources/public")
-        } else {
-            staticFileLocation("/public")
-        }
-
-        initControllers();
+        reset()
     }
 
-    private fun initControllers() {
-        MainController()
-        ErrorController()
+    fun put(key: String, value: Any?) {
+        model.get().put(key, value);
+    }
+
+    fun getModel(): Map<String, Any?> {
+        return model.get();
+    }
+
+    fun get(key: String): Any? {
+        return model.get()[key];
+    }
+
+    fun containsKey(key: String): Boolean {
+        return model.get().containsKey(key)
+    }
+
+    fun remove(key: String) {
+        model.get().remove(key)
+    }
+
+    fun reset() {
+        model.set(HashMap<String, Any?>())
     }
 }

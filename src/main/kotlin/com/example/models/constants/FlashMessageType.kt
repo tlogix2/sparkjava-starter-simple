@@ -23,30 +23,16 @@
  *
  */
 
-package com.example
+package com.example.models.constants
 
-import com.example.controllers.ErrorController
-import com.example.controllers.MainController
-import spark.Spark
-import spark.Spark.staticFileLocation
-import spark.debug.DebugScreen.enableDebugScreen
 
-class Server {
-    val isDevMode = true;
+object FlashMessageType {
 
-    init {
-        enableDebugScreen();
-        if (isDevMode) {
-            Spark.externalStaticFileLocation("src/main/resources/public")
-        } else {
-            staticFileLocation("/public")
-        }
+    val NONE: Byte = 0
+    val OTHER: Byte = 1
+    val INFO: Byte = 2
+    val WARNING: Byte = 3
+    val ERROR: Byte = 4
 
-        initControllers();
-    }
-
-    private fun initControllers() {
-        MainController()
-        ErrorController()
-    }
+    val keys = arrayOf("none", "unknown", "info", "warning", "error")
 }

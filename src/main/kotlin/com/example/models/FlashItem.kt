@@ -23,20 +23,9 @@
  *
  */
 
-package com.example.controllers
+package com.example.models
 
-import spark.Spark.get
-import java.util.*
-
-class AdminController() : Controller() {
-
-    init {
-        templatePath = "/admin"
-        baseRoutePath = "/admin/"
-
-        get("/") { rq, rs ->
-            val model = HashMap<String, String>();
-            out(model, templatePath + "index.peb");
-        }
-    }
+class FlashItem {
+    var message: String = ""
+    var type: Byte = 0
 }
