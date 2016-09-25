@@ -84,6 +84,8 @@ test {
     beforeTest { descriptor ->
         logger.lifecycle("Running test: " + descriptor)
     }
+    useTestNG() {
+    }
 }
 
 task testingUnit(type: Test, dependsOn: 'test') {
