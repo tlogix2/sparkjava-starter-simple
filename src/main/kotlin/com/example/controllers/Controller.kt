@@ -25,6 +25,7 @@
 
 package com.example.controllers
 
+import com.example.Server
 import com.example.models.ContextModel
 import com.example.models.Flash
 import com.example.util.DefaultTemplateEngine
@@ -49,10 +50,13 @@ open class Controller {
 
         /**
          * Sets a generic error handler so that the user doesn't get default white jetty error page
+         * during production.
          */
-        Spark.exception(Exception::class.java) { e, req, res ->
-            logger.error(e.message)
-            redirect(res, "/500")
+        if (!Server.isDevMode) {
+            Spark.exception(Exception::class.java) { e, req, res ->
+                logger.error(e.message)
+                redirect(res, "/500")
+            }
         }
     }
 

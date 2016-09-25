@@ -58,6 +58,7 @@ dependencies {
     compile 'com.mitchellbosecke:pebble:2.2.2'
     compile group: 'com.sparkjava', name: 'spark-debug-tools', version: '0.5'
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.2'
+    compile group: 'com.beust', name: 'jcommander', version: '1.48'
     testCompile group: 'org.testng', name: 'testng', version: '6.9.10'
     testCompile 'org.fluentlenium:fluentlenium-core:0.13.1'
     testCompile 'org.fluentlenium:fluentlenium-testng:0.13.1'

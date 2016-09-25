@@ -36,7 +36,7 @@ class ServerTest {
      * Make sure the resources exist and we didn't clean without building
      */
     @Test
-    fun checkSiteAssetsExist() {
+    fun testSiteAssetsExist() {
         var stream: InputStream
         stream = Server::class.java.getResourceAsStream("/public/assets/css/site.min.css")
         Assert.assertNotNull(stream)

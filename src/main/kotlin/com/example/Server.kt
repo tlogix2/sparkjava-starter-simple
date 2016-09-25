@@ -25,18 +25,19 @@
 
 package com.example
 
+import com.beust.jcommander.JCommander
 import com.example.controllers.ErrorController
 import com.example.controllers.MainController
+import com.example.util.CommandLineOptions
 import com.infoquant.gf.common.utils.Memory
 import org.slf4j.LoggerFactory
-import spark.Spark
+import spark.Spark.port
 import spark.Spark.staticFileLocation
 import spark.debug.DebugScreen.enableDebugScreen
 import spark.servlet.SparkApplication
 import java.util.*
 
 class Server : SparkApplication {
-    val isDevMode = true;
     val logger = LoggerFactory.getLogger(Server::class.java)
 
 
@@ -63,14 +64,14 @@ class Server : SparkApplication {
     }
 
     private fun initServer(args: Array<String>) {
-        displayStartupMessage();
-        enableDebugScreen();
-        if (isDevMode) {
-            Spark.externalStaticFileLocation("src/main/resources/public")
-        } else {
-            staticFileLocation("/public")
+        parseArgs(args);
+        if (Companion.isDevMode) {
+            enableDebugScreen();
         }
+        port(options.serverPort.toInt())
+        staticFileLocation(options.serverStaticPath)
         initControllers();
+        displayStartupMessage();
     }
 
     private fun displayStartupMessage() {
@@ -87,5 +88,16 @@ class Server : SparkApplication {
     private fun initControllers() {
         MainController()
         ErrorController()
+    }
+
+    private fun parseArgs(args: Array<String>) {
+        val options = CommandLineOptions()
+        JCommander(options, *args)
+        Server.options = options
+    }
+
+    companion object {
+        var isDevMode = true;
+        var options: CommandLineOptions = CommandLineOptions();
     }
 }

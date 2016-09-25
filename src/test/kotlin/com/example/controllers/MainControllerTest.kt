@@ -50,7 +50,7 @@ class MainControllerTest : FluentTestNg() {
 
     // @Test(groups = arrayOf("integration"))
     @Test
-    fun checkMainPagesExistTest() {
+    fun testMainPagesExistTest() {
         goTo("http://localhost:4567/")
         assertThat(pageSource()).doesNotContain("404")
         assertThat(pageSource()).doesNotContain("500")
