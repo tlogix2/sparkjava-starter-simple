@@ -23,16 +23,16 @@
  *
  */
 
-package com.example.models.constants
+package com.example.util.constants
 
 
 object FlashMessageType {
 
-    val NONE: Byte = 0
-    val OTHER: Byte = 1
-    val INFO: Byte = 2
-    val WARNING: Byte = 3
-    val ERROR: Byte = 4
+    val NONE: Int = 0
+    val OTHER: Int = 1
+    val INFO: Int = 2
+    val WARNING: Int = 3
+    val ERROR: Int = 4
 
     val keys = arrayOf("none", "unknown", "info", "warning", "error")
 }

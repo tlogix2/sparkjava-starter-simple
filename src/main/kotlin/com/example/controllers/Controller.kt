@@ -26,8 +26,8 @@
 package com.example.controllers
 
 import com.example.Server
-import com.example.models.ContextModel
-import com.example.models.Flash
+import com.example.util.ContextModel
+import com.example.util.Flash
 import com.example.util.DefaultTemplateEngine
 import org.slf4j.LoggerFactory
 import spark.Request

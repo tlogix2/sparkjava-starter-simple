@@ -23,9 +23,9 @@
  *
  */
 
-package com.example.models
+package com.example.util
 
-import com.example.models.constants.FlashMessageType
+import com.example.util.constants.FlashMessageType
 import java.util.*
 
 /**
@@ -64,23 +64,14 @@ object Flash {
     }
 
     fun addInfo(key: String, msg: String) {
-        val item = FlashItem()
-        item.type = FlashMessageType.INFO
-        item.message = msg
-        messages.put(key, item)
+        messages.put(key, FlashItem(msg, FlashMessageType.INFO))
     }
 
     fun addWarning(key: String, msg: String) {
-        val item = FlashItem()
-        item.type = FlashMessageType.WARNING
-        item.message = msg
-        messages.put(key, item)
+        messages.put(key, FlashItem(msg, FlashMessageType.WARNING))
     }
 
     fun addError(key: String, msg: String) {
-        val item = FlashItem()
-        item.type = FlashMessageType.ERROR
-        item.message = msg
-        messages.put(key, item)
+        messages.put(key, FlashItem(msg, FlashMessageType.ERROR))
     }
 }

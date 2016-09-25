@@ -137,16 +137,16 @@ task runServer(type: JavaExec) {
 ////////////////////////////////////////////////////////////////////
 // HELPER TASKS
 ////////////////////////////////////////////////////////////////////
-task _copyToLib(type: Copy) {
-    into "$buildDir/libs"
-    from configurations.runtime
-}
-
-task _copyToDist(type: Copy) {
-    into "dist/lib"
-    from "$buildDir/libs"
-}
-build.dependsOn([_copyToLib, _copyToDist])
+//task _copyToLib(type: Copy) {
+//    into "$buildDir/libs"
+//    from configurations.runtime
+//}
+//
+//task _copyToDist(type: Copy) {
+//    into "dist/lib"
+//    from "$buildDir/libs"
+//}
+//build.dependsOn([_copyToLib, _copyToDist])
 
 tasks.withType(JavaCompile) {
     options.warnings = false
