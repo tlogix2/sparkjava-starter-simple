@@ -34,8 +34,6 @@ Until we move into issues for long term use:
 * Add versioning
 * Set values from ENV, args and settings
 * Add basic forms
-* Add tests
-* Add CI
 * Maybe add DI
 * Add VirtBox & Container
 * Add easily replaced placeholders, maybe move to cookiecutter or Yeoman tool.

@@ -4,3 +4,5 @@ jdk:
 addons:
     code_climate:
         repo_token: 2c53a50b7e292aaa372cb51313f79168926da66b6f552e3828744a523aef4647
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
