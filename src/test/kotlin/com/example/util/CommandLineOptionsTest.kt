@@ -27,7 +27,6 @@ package com.example.util
 
 import com.beust.jcommander.JCommander
 import org.testng.Assert
-import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
 
 class CommandLineOptionsTest {

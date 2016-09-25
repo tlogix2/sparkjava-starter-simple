@@ -25,32 +25,23 @@
 
 package com.example.util
 
+import org.testng.Assert
+import org.testng.annotations.Test
 
-import com.mitchellbosecke.pebble.PebbleEngine
-import com.mitchellbosecke.pebble.error.PebbleException
-import java.io.IOException
-import java.io.StringWriter
-
-class DefaultTemplateEngine {
-
-    private val engine: PebbleEngine
-    private val basepath: String = "templates"
-
-    init {
-        this.engine = PebbleEngine.Builder().build();
+class ContextModelTest {
+    @Test
+    fun testGet() {
+        val model = ContextModel()
+        model.put("foo", "bar")
+        Assert.assertEquals(model.get("foo"), "bar")
     }
 
-    @SuppressWarnings("unchecked")
-    fun render(model: Map<String, Any>, template: String): String {
-        try {
-            val writer: StringWriter = StringWriter()
-            val template = engine.getTemplate(basepath + template)
-            template.evaluate(writer, model as Map<String, Any>)
-            return writer.toString()
-        } catch (e: PebbleException) {
-            throw IllegalArgumentException(e)
-        } catch (e: IOException) {
-            throw IllegalArgumentException(e)
-        }
+    @Test
+    fun testRemove() {
+        val model = ContextModel()
+        model.put("foo", "bar")
+        model.remove("foo")
+        Assert.assertFalse(model.containsKey("foo"))
     }
+
 }

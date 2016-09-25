@@ -25,4 +25,4 @@
 
 package com.example.util
 
-data class FlashItem( val message: String = "", val type: Int = 0)
+data class FlashItem(val message: String = "", val type: Int = 0)

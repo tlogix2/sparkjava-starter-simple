@@ -25,32 +25,25 @@
 
 package com.example.util
 
+import org.testng.Assert
+import org.testng.annotations.Test
+import java.util.*
 
-import com.mitchellbosecke.pebble.PebbleEngine
-import com.mitchellbosecke.pebble.error.PebbleException
-import java.io.IOException
-import java.io.StringWriter
-
-class DefaultTemplateEngine {
-
-    private val engine: PebbleEngine
-    private val basepath: String = "templates"
-
-    init {
-        this.engine = PebbleEngine.Builder().build();
+class DefaultTemplateEngineTest {
+    @Test(expectedExceptions = arrayOf(IllegalArgumentException::class))
+    fun testRenderWithMissingTemplate() {
+        val renderer = DefaultTemplateEngine()
+        val model = HashMap<String, String>()
+        model.put("foo", "bar")
+        renderer.render(model, "fake.peb")
     }
 
-    @SuppressWarnings("unchecked")
-    fun render(model: Map<String, Any>, template: String): String {
-        try {
-            val writer: StringWriter = StringWriter()
-            val template = engine.getTemplate(basepath + template)
-            template.evaluate(writer, model as Map<String, Any>)
-            return writer.toString()
-        } catch (e: PebbleException) {
-            throw IllegalArgumentException(e)
-        } catch (e: IOException) {
-            throw IllegalArgumentException(e)
-        }
+    @Test
+    fun testRenderWithValidTemplate() {
+        val renderer = DefaultTemplateEngine()
+        val model = HashMap<String, String>()
+        model.put("foo", "bar")
+        val result = renderer.render(model, "/simple.peb")
+        Assert.assertEquals(result, "It works")
     }
 }
