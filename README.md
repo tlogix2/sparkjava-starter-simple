@@ -1,3 +1,6 @@
+![](https://img.shields.io/travis/thoughtlogix/sparkjava-starter-simple.svg) 
+![](https://img.shields.io/github/license/thoughtlogix/sparkjava-starter-simple.svg)
+
 # Sparkjava Simple Starter
 
 The sparkjava simple starter provides a basic seed or example project using Spark, Kotlin and Gradle.  While it demonstrates basic routing, error handling and templates, it will not do much more than that.  Database integration, mail notifications, authentication will be used in the [SparkJava Advanced Starter](https://github.com/thoughtlogix/sparkjava-starter-advanced) project.
@@ -10,7 +13,7 @@ The sparkjava simple starter provides a basic seed or example project using Spar
 
 ## Installation
 
-Make sure you have java 1.8+ installed.
+Make sure you have jdk 1.8+ installed.
 
 * Download or clone this repo: `git clone https://github.com/thoughtlogix/sparkjava-starter-simple`.
 
